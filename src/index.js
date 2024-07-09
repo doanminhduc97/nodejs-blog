@@ -8,11 +8,17 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+
+app.use(express.urlencoded({
+  extended: true
+}));
+app.use(express.json());
+
 // Join folder public
 app.use(express.static(path.join(__dirname, 'public')));
 
 // HTTP logger
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 
 // // Template engine
 app.engine('hbs', hbs.engine);
@@ -24,8 +30,17 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-app.get('/new', (req, res) => {
+app.get('/news', (req, res) => {
   res.render('news');
+});
+
+app.get('/search', (req, res) => {
+  res.render('search');
+});
+
+app.post('/search', (req, res) => {
+  console.log(req.body);
+  res.render('search');
 });
 
 app.listen(port, () => {
