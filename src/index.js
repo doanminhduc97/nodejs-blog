@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
       app.set('views', path.join(__dirname, 'resources/views'));
 
 //Route init
-                      route(app); 
+                        route(app); 
 
-      app.listen(port, () => {
-          console.log(`Server running on port ${port}`);
-      });
+        app.listen(port, () => {
+            console.log(`Server running on port ${port}`);
+        });
