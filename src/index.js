@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // // Template engine
       app.engine('hbs', hbs.engine);
-      app.set('view engine', 'hbs');
+                    app.set('view engine', 'hbs');
       app.set('views', path.join(__dirname, 'resources/views'));
 
 //Route init
