@@ -23,13 +23,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(morgan('combined'));
 
 // // Template engine
-                    app.engine('hbs', hbs.engine);
-                    app.set('view engine', 'hbs');
-                    app.set('views', path.join(__dirname, 'resources/views'));
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'resources/views'));
 
-                    //Route init
-                    route(app);
+//Route init
+route(app);
 
-                    app.listen(port, () => {
-                        console.log(`Server running on port ${port}`);
-                                     });
+                app.listen(port, () => {
+                    console.log(`Server running on port ${port}`);
+                });
