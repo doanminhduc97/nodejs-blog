@@ -38,8 +38,8 @@
   },
   "devDependencies": {
     "express-handlebars": "^7.1.2",
-    "husky": "^9.1.1",
-    "lint-staged": "^15.2.7",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
     "morgan": "^1.10.0",
     "node-sass": "^9.0.0",
     "nodemon": "^3.1.3",
