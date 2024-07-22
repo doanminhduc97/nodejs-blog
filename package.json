@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
+    "beautiful": "lint-staged",
     "start": "nodemon src/index.js",
     "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
-    "prepare": "husky"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,7 @@
     "express": "^4.19.2"
   },
   "lint-staged": {
-    "src/**/*.{js,json,scss}": "prettier --write --single-quote --tab-width 4 --trailing-comma all"
+    "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
   },
   "husky": {
     "hooks": {
