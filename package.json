@@ -25,7 +25,9 @@
   "homepage": "https://github.com/doanminhduc97/nodejs-blog#readme",
   "description": "",
   "dependencies": {
-    "express": "^4.19.2"
+    "blog": "file:",
+    "express": "^4.19.2",
+    "mongoose": "^8.9.7"
   },
   "lint-staged": {
     "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
