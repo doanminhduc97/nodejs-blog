@@ -27,7 +27,8 @@
   "dependencies": {
     "blog": "file:",
     "express": "^4.19.2",
-    "mongoose": "^8.9.7"
+    "mongoose": "^8.9.7",
+    "mongoose-slug-generator": "^1.0.4"
   },
   "lint-staged": {
     "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
