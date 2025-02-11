@@ -27,6 +27,7 @@
   "dependencies": {
     "blog": "file:",
     "express": "^4.19.2",
+    "method-override": "^3.0.0",
     "mongoose": "^8.9.7",
     "mongoose-slug-generator": "^1.0.4"
   },

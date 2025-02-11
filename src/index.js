@@ -1,14 +1,21 @@
 const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
+const methodOverride = require('method-override')
 const hbs = handlebars.create({
     extname: '.hbs',
+    helpers: {
+        sumCustomerFunction: (a, b) => a + b,
+    }
 });
 const path = require('path');
 const app = express();
 const port = 3000;
 const route = require('./routes');
 const db = require('./config/db');
+// override using a query value
+// khi submit form, middleware sẽ điều hướng method = value mình đã settings ở url (file edit.hbs)
+app.use(methodOverride('_method'))
 
 // Connect DB
 db.connect();
