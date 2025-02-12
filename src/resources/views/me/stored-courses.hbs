@@ -1,3 +1,5 @@
+{{!-- Delete hide form --}}
+<form action="POST" name="deleteForm"></form>
 <div class="mt-4">
   <h3>Khóa học của tôi</h3>
   <table class="table mt-4">
@@ -18,10 +20,52 @@
         <td>{{ this.createdAt }}</td>
         <td>
           <a href="/courses/{{ this._id }}/edit" class="btn btn-link">Sửa</a>
-          <a href="#" class="btn btn-link">Xóa</a>
+          <a href="#" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteCourseModal" data-id="{{ this._id }}">Xóa</a>
         </td>
       </tr>
       {{/each}}
     </tbody>
   </table>
 </div>
+<div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="deleteCourseModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa khóa học?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc muốn xóa khóa học này?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa bỏ</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!--  --}}
+<script>
+  const exampleModal = document.getElementById('deleteCourseModal')
+  if (exampleModal) {
+    var courseId;
+    var deleteForm = document.forms['deleteForm'];
+    var btnDeleteCourse = document.getElementById('btn-delete-course');
+
+    exampleModal.addEventListener('show.bs.modal', event => {
+      // Button that triggered the modal
+      const button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      courseId = button.getAttribute('data-id');
+      console.log("id", courseId);
+    })
+
+  }
+    btnDeleteCourse.onclick = function() {
+      deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
+      deleteForm.method = 'POST';
+      deleteForm.submit();
+    }    
+</script>
