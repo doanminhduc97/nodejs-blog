@@ -1,14 +1,27 @@
 {{!-- Delete hide form --}}
 <form action="POST" name="deleteForm"></form>
-<div class="mt-4">
+<form class="mt-4" name="container-form" method="POST" action="/courses/handle-form-actions">
   <div>
     <h3>Khóa học của tôi</h3>
     <a href="/me/trash/courses">Thùng rác ({{ deletedCount }})</a>
   </div>
-  
+  <div class="mt-4 d-flex align-items-center">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+      <label class="form-check-label" for="checkbox-all">
+        Chọn tất cả
+      </label>
+    </div>
+    <select class="form-control form-control-sm checkbox-select-all-options" name="action">
+      <option value="">--Hành động--</option>
+      <option value="delete">Xóa</option>
+    </select>
+    <button class="btn btn-primary btn-sm btn-disabled disabled">Thực hiện</button>
+  </div>
   <table class="table mt-4">
     <thead>
       <tr>
+        <th scope="col"></th>
         <th scope="col">#</th>
         <th scope="col">Tên khóa học</th>
         <th scope="col">Trình độ</th>
@@ -18,6 +31,11 @@
     <tbody>
       {{#each courses}}
       <tr>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{ this._id }}"> 
+          </div>
+        </td>
         <td>{{ sumCustomerFunction @index 1}}</td>
         <td>{{ this.name }}</td>
         <td>{{ this.level }}</td>
@@ -34,7 +52,7 @@
       {{/each}}
     </tbody>
   </table>
-</div>
+</form>
 <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="deleteCourseModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -61,7 +79,12 @@
     var courseId;
     var deleteForm = document.forms['deleteForm'];
     var btnDeleteCourse = document.getElementById('btn-delete-course');
+    var checkboxAll = $('#checkbox-all');
+    var courseItemCheckbox = $('input[name="courseIds[]"]');
+    var btnDisabled = $('.btn-disabled');
+    var containerForm = document.forms['container-form'];
 
+    var selectAction = $('select[name="action"]');
     exampleModal.addEventListener('show.bs.modal', event => {
       // Button that triggered the modal
       const button = event.relatedTarget
@@ -74,5 +97,40 @@
       deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
       deleteForm.method = 'POST';
       deleteForm.submit();
-    }    
+    }
+
+    // checkbox all clicked
+    checkboxAll.change(function() {
+      courseItemCheckbox.prop('checked', $(this).prop('checked'));
+      renderCheckAllSubmitBtn();
+    });
+
+    // Course item checkbox clicked
+    courseItemCheckbox.change(function() {
+      checkboxAll.prop('checked', courseItemCheckbox.length === courseItemCheckbox.filter(':checked').length);
+      renderCheckAllSubmitBtn();
+    });
+
+    btnDisabled.click(function(e) {
+      e.preventDefault();
+      var isSubmittable = !$(this).hasClass('disabled');
+      if (isSubmittable) {
+        containerForm.submit();
+      }
+
+    })
+
+    btnDisabled.on('submit', function(e) {
+      e.preventDefault();
+      var isSubmittable = !$(this).hasClass('disabled');
+      if (!isSubmittable) {
+        e.preventDefault();
+      }
+    })
+    selectAction.change(function() {
+      renderCheckAllSubmitBtn();
+    })
+    function renderCheckAllSubmitBtn() {
+      return courseItemCheckbox.filter(':checked').length && selectAction.val() ? btnDisabled.removeClass('disabled') : btnDisabled.addClass('disabled');
+    }
 </script>

@@ -62,7 +62,6 @@
   var courseId = $(this).data('id');
     restoreForm.method = 'POST';
     restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
-    console.log("restoreForm", restoreForm)
     restoreForm.submit();
   })
 
