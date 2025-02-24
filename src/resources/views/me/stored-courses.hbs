@@ -23,9 +23,17 @@
       <tr>
         <th scope="col"></th>
         <th scope="col">#</th>
-        <th scope="col">Tên khóa học</th>
-        <th scope="col">Trình độ</th>
-        <th scope="col" colspan="2">Thời gian tạo</th>
+        <th scope="col">Tên khóa học 
+          {{{ sortable 'name' _sort  }}}
+        </th>
+        <th scope="col">
+          Trình độ
+          {{{ sortable 'level' _sort  }}}
+        </th>
+        <th scope="col" colspan="2">
+          Thời gian tạo
+          {{{ sortable 'createdAt' _sort  }}}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -111,6 +119,7 @@
       renderCheckAllSubmitBtn();
     });
 
+     // Prevent form submit when disabled btn clicked
     btnDisabled.click(function(e) {
       e.preventDefault();
       var isSubmittable = !$(this).hasClass('disabled');
@@ -120,6 +129,7 @@
 
     })
 
+    // Prevent form submit when disabled btn clicked
     btnDisabled.on('submit', function(e) {
       e.preventDefault();
       var isSubmittable = !$(this).hasClass('disabled');
@@ -127,9 +137,11 @@
         e.preventDefault();
       }
     })
+    
     selectAction.change(function() {
       renderCheckAllSubmitBtn();
     })
+
     function renderCheckAllSubmitBtn() {
       return courseItemCheckbox.filter(':checked').length && selectAction.val() ? btnDisabled.removeClass('disabled') : btnDisabled.addClass('disabled');
     }
